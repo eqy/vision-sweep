@@ -1,5 +1,6 @@
 import argparse
 import csv
+import numpy as np
 import os
 #import altair as alt
 #print(alt.__version__)
@@ -58,3 +59,9 @@ output_name = f'{os.path.splitext(os.path.basename(args.baseline))[0]}vs{os.path
 #chart.save(output_name)
 ax = sns.barplot(x='config', y='ratio', data=fused_sorted_df)
 plt.savefig(output_name)
+ratios = np.array(fused['ratio'])
+print("min:", min(ratios), "max:", max(ratios))
+power = 1/len(ratios)
+temp = np.prod(ratios)
+geomean = temp**power
+print("geomean:", geomean)
