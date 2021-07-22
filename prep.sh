@@ -33,11 +33,11 @@ fi
 sm="7.0 8.0 8.6"
 if [[ $gpu ]]; then
 	echo "running for $gpu ..."
-	pip install timm
 	pip uninstall torch -y
 	cd ../pytorch
 	../build.sh $sm --cmake
 	cd ../vision-sweep
+	pip install timm
 	pkill python
 	for zoo in 'timm' 'torchvision'
 	do
