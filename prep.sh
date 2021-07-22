@@ -31,7 +31,7 @@ else
 fi 
 if [[ $gpu ]]; then
 	echo "running for $gpu ..."
-	pip install progress
+	pip install timm
 	pip uninstall torch -y
 	cd ../pytorch
 	../build.sh $sm --cmake
