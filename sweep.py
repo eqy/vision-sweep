@@ -70,7 +70,7 @@ def main():
         models = tv_models
     output = {'model': [], 'resolution': [], 'iter_time': []}
 
-    assert args.sku in ['3080', '3090', 'A100', 'V100', 'A6000']
+    assert args.sku in ['3080', '3090', 'A100', 'V100', 'A6000', 'A30']
     resolutions = generate_resolutions()
 
     for idx, model in enumerate(models):
