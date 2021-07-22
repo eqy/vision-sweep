@@ -35,7 +35,7 @@ if [[ $gpu ]]; then
 	echo "running for $gpu ..."
 	pip uninstall torch -y
 	cd ../pytorch
-	../build.sh $sm --cmake
+	../build.sh "$sm" --cmake
 	cd ../vision-sweep
 	pip install timm
 	pkill python
