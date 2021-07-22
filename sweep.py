@@ -1,5 +1,4 @@
 import argparse
-from progress.bar import Bar
 import csv
 import time
 
