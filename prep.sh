@@ -37,7 +37,7 @@ if [[ $gpu ]]; then
 	../build.sh $sm --cmake
 	cd ../vision-sweep
 	pkill python
-	for zoo in [ 'timm' 'torchvision' ]
+	for zoo in 'timm' 'torchvision'
 	do
 		echo "running v8 heuristic mode b (" "$zoo" ")"
 		CUDNN_V8_API_ENABLED=1 CUDNN_V8_API_DEBUG=1 USE_HEURISTIC_MODE_B=1 python sweep.py --"$zoo" --train --output train_"$zoo"_v8heurb_"$gpu"_100.csv --sku $gpu
