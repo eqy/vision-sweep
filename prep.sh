@@ -29,6 +29,8 @@ elif [[ $(echo $name | grep 'A6000') ]]; then
 else
 	echo "No GPU"
 fi 
+# parallelism to run all
+sm="7.0 8.0 8.6"
 if [[ $gpu ]]; then
 	echo "running for $gpu ..."
 	pip install progress
