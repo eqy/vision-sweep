@@ -28,6 +28,7 @@ def main():
     parser.add_argument('--benchmark', action='store_true')
     parser.add_argument('--train', action='store_true')
     parser.add_argument('--timm', action='store_true')
+    parser.add_argument('--torchvision', action='store_true')
     args = parser.parse_args()
 
     if args.native:
@@ -62,7 +63,10 @@ def main():
                    'inception_v4']
     if args.timm:
         models = timm_models
+        assert not args.torchvision
     else:
+        assert not args.timm
+        assert args.torchvision
         models = tv_models
     output = {'model': [], 'resolution': [], 'iter_time': []}
 
