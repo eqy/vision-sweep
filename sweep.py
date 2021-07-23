@@ -6,7 +6,7 @@ import torch
 import torchvision
 
 WARMUP_ITERS = 2
-RUN_ITERS = 100
+RUN_ITERS = 10
 
 def generate_resolutions(base_factors=[56, 32]):
     resolutions = list()

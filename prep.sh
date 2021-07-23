@@ -35,25 +35,25 @@ if [[ $gpu ]]; then
 	echo "running for $gpu ..."
 	pip uninstall torch -y
 	cd ../pytorch
-	../build.sh "$sm" --cmake
+	../build.sh "$sm"
 	cd ../vision-sweep
 	pip install timm
 	pkill python
 	for zoo in 'timm' 'torchvision'
 	do
 		echo "running v8 heuristic mode b (" "$zoo" ")"
-		CUDNN_V8_API_ENABLED=1 CUDNN_V8_API_DEBUG=1 USE_HEURISTIC_MODE_B=1 python sweep.py --"$zoo" --train --output train_"$zoo"_v8heurb_"$gpu"_100.csv --sku $gpu
+		CUDNN_V8_API_ENABLED=1 CUDNN_V8_API_DEBUG=1 USE_HEURISTIC_MODE_B=1 python sweep.py --"$zoo" --train --output train_"$zoo"_v8heurb_"$gpu"_10.csv --sku $gpu
 		pkill python
 		echo "running v8 bench (" "$zoo" ")"
-		CUDNN_V8_API_ENABLED=1 CUDNN_V8_API_DEBUG=1 USE_HEURISTIC_MODE_B=0 python sweep.py --"$zoo" --train --output train_"$zoo"_v8bench_"$gpu"_100.csv --sku $gpu --bench
+		CUDNN_V8_API_ENABLED=1 CUDNN_V8_API_DEBUG=1 USE_HEURISTIC_MODE_B=0 python sweep.py --"$zoo" --train --output train_"$zoo"_v8bench_"$gpu"_10.csv --sku $gpu --bench
 		pkill python
 		echo "running v8 heur (" "$zoo" ")"
-		CUDNN_V8_API_ENABLED=1 CUDNN_V8_API_DEBUG=1 USE_HEURISTIC_MODE_B=0 python sweep.py --"$zoo" --train --output train_"$zoo"_v8heur_"$gpu"_100.csv --sku $gpu
+		CUDNN_V8_API_ENABLED=1 CUDNN_V8_API_DEBUG=1 USE_HEURISTIC_MODE_B=0 python sweep.py --"$zoo" --train --output train_"$zoo"_v8heur_"$gpu"_10.csv --sku $gpu
 		pkill python
 		echo "running v7 bench (" "$zoo" ")"
-		CUDNN_V8_API_ENABLED=0 CUDNN_V8_API_DEBUG=1 USE_HEURISTIC_MODE_B=0 python sweep.py --"$zoo" --train --output train_"$zoo"_v7bench_"$gpu"_100.csv --sku $gpu --bench
+		CUDNN_V8_API_ENABLED=0 CUDNN_V8_API_DEBUG=1 USE_HEURISTIC_MODE_B=0 python sweep.py --"$zoo" --train --output train_"$zoo"_v7bench_"$gpu"_10.csv --sku $gpu --bench
 		echo "running v7 heur (" "$zoo" ")"
-		CUDNN_V8_API_ENABLED=0 CUDNN_V8_API_DEBUG=1 USE_HEURISTIC_MODE_B=0 python sweep.py --"$zoo" --train --output train_"$zoo"_v7heur_"$gpu"_100.csv --sku $gpu
+		CUDNN_V8_API_ENABLED=0 CUDNN_V8_API_DEBUG=1 USE_HEURISTIC_MODE_B=0 python sweep.py --"$zoo" --train --output train_"$zoo"_v7heur_"$gpu"_10.csv --sku $gpu
 	done
 else
 	echo "No gpu found, not running ..."
