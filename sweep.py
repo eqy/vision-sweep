@@ -4,7 +4,7 @@ import time
 
 import torch
 import torchvision
-import torchvision.models.googlenet
+from torchvision.models.googlenet import GoogLeNetOutputs
 
 WARMUP_ITERS = 2
 RUN_ITERS = 10
@@ -103,7 +103,7 @@ def main():
             _, target = torch.max(torch.rand(batch_size, 1000, device='cuda'), axis=1)
             for i in range(WARMUP_ITERS):
                 o = m(data)
-                if isinstance(0, torchvision.models.googlenet.GoogLeNetOutputs):
+                if isinstance(0, GoogLeNetOutputs):
                     o = o['logits']
                 if args.train:
                     loss = criterion(o, target)
