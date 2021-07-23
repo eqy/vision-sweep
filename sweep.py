@@ -109,7 +109,7 @@ def main():
             for i in range(WARMUP_ITERS):
                 o = m(data)
                 if isinstance(o, GoogLeNetOutputs):
-                    o = o['logits']
+                    o = o.logits
                 if args.train:
                     loss = criterion(o, target)
                     optimizer.zero_grad()
@@ -120,7 +120,7 @@ def main():
             for i in range(RUN_ITERS):
                 o = m(data)
                 if isinstance(o, GoogLeNetOutputs):
-                    o = o['logits']
+                    o = o.logits
                 if args.train:
                     loss = criterion(o, target)
                     optimizer.zero_grad()
