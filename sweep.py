@@ -119,6 +119,8 @@ def main():
             t1 = time.time()
             for i in range(RUN_ITERS):
                 o = m(data)
+                if isinstance(0, GoogLeNetOutputs):
+                    o = o['logits']
                 if args.train:
                     loss = criterion(o, target)
                     optimizer.zero_grad()
