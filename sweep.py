@@ -48,7 +48,7 @@ def main():
                 'squeezenet1_0',
                 'densenet161',
                 #'inception_v3',
-                #'googlenet',
+                'googlenet',
                 'shufflenet_v2_x1_0', 
                 'mobilenet_v2',
                 'mobilenet_v3_large',
@@ -108,7 +108,7 @@ def main():
             _, target = torch.max(torch.rand(batch_size, 1000, device='cuda'), axis=1)
             for i in range(WARMUP_ITERS):
                 o = m(data)
-                if isinstance(0, GoogLeNetOutputs):
+                if isinstance(o, GoogLeNetOutputs):
                     o = o['logits']
                 if args.train:
                     loss = criterion(o, target)
@@ -119,7 +119,7 @@ def main():
             t1 = time.time()
             for i in range(RUN_ITERS):
                 o = m(data)
-                if isinstance(0, GoogLeNetOutputs):
+                if isinstance(o, GoogLeNetOutputs):
                     o = o['logits']
                 if args.train:
                     loss = criterion(o, target)
