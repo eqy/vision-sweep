@@ -59,7 +59,8 @@ def main():
                    'mixnet_l',
                    'seresnet152d',
                    'seresnext26d_32x4d',
-                   'inception_v4']
+                  # 'inception_v4',
+                  ]
     if args.timm:
         models = timm_models
         assert not args.torchvision
@@ -97,6 +98,10 @@ def main():
             batch_size //= 4
         elif 'resnext50_32x4d' in model:
             batch_size //= 4
+        elif 'seresnet' in model:
+            batch_size //= 4
+        elif 'inception_v4' in model:
+            batch_size //=4
         for res_idx, resolution in enumerate(resolutions):
             data = torch.rand(batch_size, 3, resolution[0], resolution[1], device='cuda')
             _, target = torch.max(torch.rand(batch_size, 1000, device='cuda'), axis=1)

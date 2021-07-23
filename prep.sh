@@ -1,5 +1,4 @@
 #!/bin/bash
-gpu=""
 sm=""
 name=`nvidia-smi --query-gpu=name --format=csv --id=0`
 if [[ $(echo $name | grep '3080') ]]; then
