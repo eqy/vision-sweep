@@ -48,7 +48,7 @@ def main():
                 'squeezenet1_0',
                 'densenet161',
                 #'inception_v3',
-                'googlenet',
+                #'googlenet',
                 'shufflenet_v2_x1_0', 
                 'mobilenet_v2',
                 'mobilenet_v3_large',
