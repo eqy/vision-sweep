@@ -71,11 +71,11 @@ def main():
         models = tv_models
     output = {'model': [], 'resolution': [], 'iter_time': []}
 
-    assert args.sku in ['3080', '3090', 'A100', 'V100', 'A6000', 'A30']
+    assert args.sku in ['3080', '3090', 'A100', 'V100', 'A6000', 'A30', 'A40']
     resolutions = generate_resolutions()
 
     for idx, model in enumerate(models):
-        if args.sku in ['A100', 'A6000']: # 48GiB
+        if args.sku in ['A100', 'A6000', 'A40']: # 48GiB
             batch_size = 64
         if args.sku in ['3080']: # 12GiB
             batch_size = 12

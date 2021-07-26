@@ -21,6 +21,10 @@ elif [[ $(echo $name | grep 'A30') ]]; then
 	echo "A30 Found"
 	gpu="A30"
 	sm="8.0"
+elif [[ $(echo $name | grep 'A40') ]]; then
+	echo "A40 Found"
+	gpu="A40"
+	sm="8.6"
 elif [[ $(echo $name | grep 'A6000') ]]; then
 	echo "A6000 Found"
 	gpu="A6000"
