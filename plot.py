@@ -37,31 +37,42 @@ def fuse_data(baseline, new):
     return fused
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--new', required=True)
-parser.add_argument('--baseline', required=True)
+parser.add_argument('--sku', required=True)
+#parser.add_argument('--new', required=True)
+#parser.add_argument('--baseline', required=True)
 args = parser.parse_args()
 
-assert os.path.exists(args.new)
-assert os.path.exists(args.baseline)
+#assert os.path.exists(args.new)
+#assert os.path.exists(args.baseline)
 
-baseline = {'model': [], 'resolution': [], 'iter_time': []}
-new = {'model': [], 'resolution': [], 'iter_time': []}
-baseline = load_data(args.baseline, baseline)
-new = load_data(args.new, new)
-fused = fuse_data(baseline, new)
-fused_df = pd.DataFrame(fused)
-fused_sorted_df = fused_df.sort_values(by='ratio', ascending=False)
-print(fused_sorted_df)
-#bar = alt.Chart(fused_sorted_df).mark_bar().encode(x='config:N', y='ratio:Q')
-#rule = alt.Chart(fused_sorted_df).mark_rule(color='red').encode(y='1.0:Q')
-output_name = f'{os.path.splitext(os.path.basename(args.baseline))[0]}vs{os.path.splitext(os.path.basename(args.new))[0]}.pdf'
-#chart = (bar+rule).properties(width=600)
-#chart.save(output_name)
-ax = sns.barplot(x='config', y='ratio', data=fused_sorted_df)
-plt.savefig(output_name)
-ratios = np.array(fused['ratio'])
-print("min:", min(ratios), "max:", max(ratios))
-power = 1/len(ratios)
-temp = np.prod(ratios)
-geomean = temp**power
-print("geomean:", geomean)
+def compare(new_path, baseline_path):
+    assert os.path.exists(new_path)
+    assert os.path.exists(baseline_path)
+    baseline = {'model': [], 'resolution': [], 'iter_time': []}
+    new = {'model': [], 'resolution': [], 'iter_time': []}
+    baseline = load_data(baseline_path, baseline)
+    new = load_data(new_path, new)
+    fused = fuse_data(baseline, new)
+    fused_df = pd.DataFrame(fused)
+    fused_sorted_df = fused_df.sort_values(by='ratio', ascending=False)
+    #print(fused_sorted_df)
+    #bar = alt.Chart(fused_sorted_df).mark_bar().encode(x='config:N', y='ratio:Q')
+    #rule = alt.Chart(fused_sorted_df).mark_rule(color='red').encode(y='1.0:Q')
+    output_name = f'{os.path.splitext(os.path.basename(baseline_path))[0]}vs{os.path.splitext(os.path.basename(new_path))[0]}.pdf'
+    #ax = sns.barplot(x='config', y='ratio', data=fused_sorted_df)
+    #plt.savefig(output_name)
+    ratios = np.array(fused['ratio'])
+    print("min:", min(ratios), "max:", max(ratios))
+    power = 1/len(ratios)
+    temp = np.prod(ratios)
+    geomean = temp**power
+    print("geomean:", geomean)
+
+for zoo in ['timm', 'torchvision']:
+    print(zoo, "heur mode v8 vs. v7")
+    compare(f'train_{zoo}_v8heurb_{args.sku}_10.csv', f'train_{zoo}_v7heur_{args.sku}_10.csv')
+    print(zoo, "heur mode b v8 vs. v7")
+    compare(f'train_{zoo}_v8heur_{args.sku}_10.csv', f'train_{zoo}_v7heur_{args.sku}_10.csv')
+    print(zoo, "bench v8 vs. v7")
+    compare(f'train_{zoo}_v8bench_{args.sku}_10.csv', f'train_{zoo}_v7bench_{args.sku}_10.csv')
+
