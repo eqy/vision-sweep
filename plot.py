@@ -62,11 +62,10 @@ def compare(new_path, baseline_path):
     #ax = sns.barplot(x='config', y='ratio', data=fused_sorted_df)
     #plt.savefig(output_name)
     ratios = np.array(fused['ratio'])
-    print("min:", min(ratios), "max:", max(ratios))
     power = 1/len(ratios)
     temp = np.prod(ratios)
-    geomean = temp**power
-    print("geomean:", geomean)
+    geomean = temp**power[
+    print("min:", min(ratios), "max:", max(ratios), "geomean:", geomean)
 
 for zoo in ['timm', 'torchvision']:
     print(zoo, "heur mode v8 vs. v7")
