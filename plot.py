@@ -64,7 +64,7 @@ def compare(new_path, baseline_path):
     ratios = np.array(fused['ratio'])
     power = 1/len(ratios)
     temp = np.prod(ratios)
-    geomean = temp**power[
+    geomean = temp**power
     print("min:", min(ratios), "max:", max(ratios), "geomean:", geomean)
 
 for zoo in ['timm', 'torchvision']:
