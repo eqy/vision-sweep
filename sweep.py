@@ -78,7 +78,7 @@ def main():
         if args.sku in ['A100', 'A6000', 'A40']: # 48GiB
             batch_size = 64
         if args.sku in ['3080']: # 12GiB
-            batch_size = 12
+            batch_size = 10
         if args.sku in ['3090', 'A30']: # 24GiB
             batch_size = 24
         if args.sku in ['V100']:
