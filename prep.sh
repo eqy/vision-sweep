@@ -17,6 +17,10 @@ elif [[ $(echo $name | grep 'V100') ]]; then
 	echo "V100 Found"
 	gpu="V100"
 	sm="7.0"
+elif [[ $(echo $name | grep 'P100') ]]; then
+	echo "P100 Found"
+	gpu="P100"
+	sm="6.0"
 elif [[ $(echo $name | grep 'A30') ]]; then
 	echo "A30 Found"
 	gpu="A30"
@@ -33,13 +37,13 @@ else
 	echo "No GPU"
 fi 
 # parallelism to run all
-sm="7.0 8.0 8.6"
+sm="6.0 7.0 8.0 8.6"
 if [[ $gpu ]]; then
 	echo "running for $gpu ..."
 	pip install timm
 	pip uninstall torch -y
 	cd ../pytorch
-	../build.sh "$sm" --cmake
+	../build.sh "$sm" #--cmake
 	cd ../vision-sweep
 	pkill python
 	for zoo in 'timm' 'torchvision'
